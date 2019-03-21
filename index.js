@@ -93,8 +93,6 @@ controller.hears(['question me'], 'message_received', function(bot,message) {
 
 // @bot hello --> Begins the Cat Rescue quest
 controller.hears(/hello/i, 'direct_message', (bot, message) => {
-
-
   // console.log(message)
   var {text, user} = message
 
@@ -118,6 +116,8 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
   // start a conversation to handle this response.
   bot.startConversation(message, function(err,convo) {
+    console.log(`Mayber User ${user} can help me find another cat?`)
+
     var catNameUpper = catName.toUpperCase()
     var catNameMistakeUpper = catNameMistake.toUpperCase()
     var catReply = `${catNameMistakeUpper}!!!! ... *cough* i mean, ${catNameUpper}!!`
@@ -129,6 +129,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       {
         pattern: ':cat:',
         callback: function(response,convo) {
+          console.log(`Thanks for the cat, ${user}`)
           convo.say(catReply)
           convo.next()
         }
@@ -136,6 +137,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       {
         default: true,
         callback: function(response,convo) {
+          console.log(`Continuing to complain to ${user} about the cat`)
           convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
           setTimeout(() => 
             convo.say(`he is but a small weak kitty...`),
