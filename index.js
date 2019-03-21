@@ -120,6 +120,21 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
   var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
 
+  // #debug
+  // Copied from the botkit docs to debug startConversation call below
+  // start a conversation to handle this response.
+  bot.startConversation(message,function(err,convo) {
+
+    convo.addQuestion('How are you?',function(response,convo) {
+
+      convo.say('Cool, you said: ' + response.text);
+      convo.next();
+
+    },{},'default');
+
+  })
+  return
+
   // start a conversation to handle this response.
   bot.startConversation(message, function(err,convo) {
     console.log(`Mayber User ${user} can find me another cat?\nI'll call it ${catNameMistake}! ...no wait, ${catName}!}`)
