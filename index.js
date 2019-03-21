@@ -96,48 +96,32 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
   // console.log(message)
   var {text, user} = message
 
-  console.log(`Processing hello from ${user}`)
-
-  var keys = ['target', 'amount']
-
-  var catNames = [
-    'floofy',
-    'Mr. Poops',
-    'furryface',
-    'pillowpants',
-    'ploofyploof',
-    'plop-plop',
-    'doopsie',
-    'boopsie',
-    'dumpling',
-    'snugglypoo',
-    'Sir Snuggles'
-  ]
-
-  var catName = _.sample(catNames)
-  _.remove(catNames, catName)
-  var catNameMistake = _.sample(catNames)
-
-  var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
-
-  // #debug
-  // Copied from the botkit docs to debug startConversation call below
-  // start a conversation to handle this response.
-  bot.startConversation(message,function(err,convo) {
-
-    convo.addQuestion('How are you?',function(response,convo) {
-
-      convo.say('Cool, you said: ' + response.text);
-      convo.next();
-
-    },{},'default');
-
-  })
-  return
+  console.log(`This ${user} person is greeting me... "${text}", they say.`)
 
   // start a conversation to handle this response.
   bot.startConversation(message, function(err,convo) {
+
+    var catNames = [
+      'floofy',
+      'Mr. Poops',
+      'furryface',
+      'pillowpants',
+      'ploofyploof',
+      'plop-plop',
+      'doopsie',
+      'boopsie',
+      'dumpling',
+      'snugglypoo',
+      'Sir Snuggles'
+    ]
+  
+    var catName = _.sample(catNames)
+    _.remove(catNames, catName)
+    var catNameMistake = _.sample(catNames)
+
     console.log(`Mayber User ${user} can find me another cat?\nI'll call it ${catNameMistake}! ...no wait, ${catName}!}`)
+
+    var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
 
     var catNameUpper = catName.toUpperCase()
     var catNameMistakeUpper = catNameMistake.toUpperCase()
