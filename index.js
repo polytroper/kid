@@ -150,7 +150,6 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
           setTimeout(() => {
             convo.say(`he is but a small weak kitty...`)
             convo.silentRepeat()
-            convo.next()
           }, 1000)
         }
       }
