@@ -115,7 +115,8 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       'boopsie',
       'dumpling',
       'snugglypoo',
-      'Sir Snuggles'
+      'Sir Snuggles',
+      'flopsy'
     ]
   
     var catName = _.sample(catNames)
