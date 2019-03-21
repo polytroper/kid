@@ -122,7 +122,6 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
     console.log(`Maybe User ${user} can find me another cat?\nI'll call it ${catNameMistake}! ...no wait, ${catName}!}`)
 
-    var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
 
     var catNameUpper = catName.toUpperCase()
     var catNameMistakeUpper = catNameMistake.toUpperCase()
@@ -132,13 +131,35 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
     console.log(`*ahem* let's rehearse for ${user}...\n${catReply}`)
 
-    convo.addQuestion(reply, [
+    convo.say({
+      delay: 2000,
+      text: `scuse me sirrah, scuse me...`
+    })
+
+    convo.say({
+      delay: 2000,
+      text: `my cat ${catName} is missing.`
+    })
+
+    convo.say({
+      delay: 2000,
+      text: `poor ${catName} _cough cough_ :(`
+    })
+
+    convo.ask({
+      delay: 2000,
+      text: `could you help me find him? please, please??`
+    }, [
       {
         pattern: ':cat:',
         callback: function(response,convo) {
           console.log(`${user}: ${response.text}`)
           console.log(`Thanks for the cat, ${user}`)
-          convo.say(catReply)
+          convo.say({
+            delay: 2000,
+            text: catReply
+          })
+          
           convo.next()
         }
       },
@@ -147,14 +168,15 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         callback: function(response,convo) {
           console.log(`Not a cat, ${user}. I'll just have to complain about ${catName} again.`)
           convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
-          setTimeout(() => {
-            convo.say(`he is but a small weak kitty...`)
-            convo.silentRepeat()
-            convo.next()
-          }, 1000)
-        }
+          convo.say({
+            delay: 2500,
+            text: `he is but a small weak kitty...`
+          })
+
+          convo.silentRepeat()
+          convo.next()
       }
-    ],{},'default')
+    ], {})
 
   })
 })
