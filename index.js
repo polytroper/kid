@@ -156,7 +156,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
           convo.next()
         }
       }
-    ],{},'default')
+    ])
 
   })
 })
