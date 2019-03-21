@@ -132,7 +132,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
     console.log(`*ahem* let's rehearse for ${user}...\n${catReply}`)
 
     convo.say({
-      delay: 2000,
+      delay: 0,
       text: `scuse me sirrah, scuse me...`
     })
 
@@ -155,6 +155,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         callback: function(response,convo) {
           console.log(`${user}: ${response.text}`)
           console.log(`Thanks for the cat, ${user}`)
+
           convo.say({
             delay: 1500,
             text: catReply
@@ -166,7 +167,9 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       {
         default: true,
         callback: function(response,convo) {
-          console.log(`Not a cat, ${user}. I'll just have to complain about ${catName} again.`)
+          console.log(`${user}: ${response.text}`)
+          console.log(`That's not a cat, ${user}. I'll just have to complain about ${catName} again.`)
+          
           convo.say({
             delay: 1500,
             text: `i shall be ever so sad if anything happens to ${catName} :(`
