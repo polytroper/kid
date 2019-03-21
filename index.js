@@ -130,33 +130,11 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
     console.log(`*ahem* let's rehearse for ${user}...\n${catReply}`)
 
-    convo.ask({
+    convo.say({
       user,
       channel: user,
       text: reply
-    }, [
-      {
-        pattern: ':cat:',
-        callback: function(response,convo) {
-          console.log(`${user}: ${response.text}`)
-          console.log(`Thanks for the cat, ${user}`)
-          convo.say(catReply)
-          convo.next()
-        }
-      },
-      {
-        default: true,
-        callback: function(response,convo) {
-          console.log(`Not a cat, ${user}. I'll just have to complain about ${catName} again.`)
-          convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
-          setTimeout(() => 
-            convo.say(`he is but a small weak kitty...`),
-            1000
-          )
-          convo.next()
-        }
-      }
-    ])
+    })
 
   })
 })
