@@ -112,7 +112,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
   var catName = _.sample(catNames)
   _.remove(catNames, catName)
-  var catNameMistake = _.sample(catNameMistake)
+  var catNameMistake = _.sample(catNames)
 
   var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
 
