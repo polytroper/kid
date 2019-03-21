@@ -73,6 +73,8 @@ var controller = Botkit.slackbot({
   storage: redisStorage
 });
 
+controller.startTicking();
+
 controller.setupWebserver(process.env.PORT, function(err,webserver) {
     controller.createWebhookEndpoints(controller.webserver)
     controller.createOauthEndpoints(controller.webserver)
