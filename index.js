@@ -123,14 +123,6 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
     console.log(`Maybe User ${user} can find me another cat?\nI'll call it ${catNameMistake}! ...no wait, ${catName}!}`)
 
 
-    var catNameUpper = catName.toUpperCase()
-    var catNameMistakeUpper = catNameMistake.toUpperCase()
-    var catReply = `${catNameMistakeUpper}!!!! ... *cough* i mean, ${catNameUpper}!!`
-    catReply += `\noh i am ever so happy sirrah, thank you thank you!!`
-    catReply += `\ni shall repay you with what meager coins i have in my pocket!`
-
-    console.log(`*ahem* let's rehearse for ${user}...\n${catReply}`)
-
     convo.say({
       delay: 0,
       text: `scuse me sirrah, scuse me...`
@@ -153,6 +145,12 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       {
         pattern: ':cat:',
         callback: function(response,convo) {
+          var catNameUpper = catName.toUpperCase()
+          var catNameMistakeUpper = catNameMistake.toUpperCase()
+          var catReply = `${catNameMistakeUpper}!!!! ... *cough* i mean, ${catNameUpper}!!`
+          catReply += `\noh i am ever so happy sirrah, thank you thank you!!`
+          catReply += `\ni shall repay you with what meager coins i have in my pocket!`
+
           console.log(`${user}: ${response.text}`)
           console.log(`Thanks for the cat, ${user}`)
 
