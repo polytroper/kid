@@ -130,7 +130,6 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
     console.log(`Maybe User ${user} can find me another cat?\nI'll call it ${catNameMistake}! ...no wait, ${catName}!}`)
 
-
     convo.say({
       delay: 0,
       text: `scuse me sirrah, scuse me...`
@@ -202,6 +201,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
 controller.hears('.*', 'direct_mention,direct_message', (bot, message) => {
   var {text, user} = message
+  console.log(message)
   console.log(`Received unhandled message from User ${user}:\n${text}`)
 
   bot.replyInThread(message, 'oh uhmm sorry I don\'t understand...')
