@@ -131,7 +131,11 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
     console.log(`*ahem* let's rehearse for ${user}...\n${catReply}`)
 
-    convo.addQuestion(reply, [
+    convo.ask({
+      user,
+      channel: user,
+      text: reply
+    }, [
       {
         pattern: ':cat:',
         callback: function(response,convo) {
