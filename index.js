@@ -159,7 +159,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
             delay: 2000,
             text: catReply
           })
-          
+
           convo.next()
         }
       },
@@ -175,6 +175,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
           convo.silentRepeat()
           convo.next()
+        }
       }
     ], {})
 
