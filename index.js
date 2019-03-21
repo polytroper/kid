@@ -106,7 +106,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
     'furryface',
     'pillowpants',
     'ploofyploof',
-    'plopplop',
+    'plop-plop',
     'doopsie',
     'boopsie',
     'dumpling',
