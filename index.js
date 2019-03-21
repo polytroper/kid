@@ -144,16 +144,16 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       {
         default: true,
         callback: function(response,convo) {
-          console.log(`Continuing to complain to ${user} about the cat`)
+          console.log(`Continuing to complain to ${user} about ${catName}`)
           convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
           setTimeout(() => 
             convo.say(`he is but a small weak kitty...`),
             1000
           )
-          convo.next();
+          convo.next()
         }
       }
-    ],{},'default');
+    ],{},'default')
 
   })
 })
