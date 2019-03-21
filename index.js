@@ -176,7 +176,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
             text: `he is but a small weak kitty...`
           })
 
-          convo.silentRepeat()
+          convo.repeat()
           convo.next()
         }
       }
