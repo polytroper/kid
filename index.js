@@ -147,11 +147,11 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         callback: function(response,convo) {
           console.log(`Not a cat, ${user}. I'll just have to complain about ${catName} again.`)
           convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
-          setTimeout(() => 
-            convo.say(`he is but a small weak kitty...`),
-            1000
-          )
-          convo.next()
+          setTimeout(() => {
+            convo.say(`he is but a small weak kitty...`)
+            convo.silentRepeat()
+            convo.next()
+          }, 1000)
         }
       }
     ],{},'default')
