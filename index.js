@@ -167,6 +167,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
           })
 
           bot.say({
+            delay: 3000,
             user: `@${bankUser}`,
             channel: `@${bankUser}`,
             text: `<@${bankUser}> give <@${user}> 2`
