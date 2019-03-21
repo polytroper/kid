@@ -101,7 +101,7 @@ controller.hears(['question me'], 'message_received', function(bot,message) {
 
 // @bot hello --> Begins the Cat Rescue quest
 controller.hears(/hello/i, 'direct_message', (bot, message) => {
-  console.log(message)
+  // console.log(message)
   var {text, user, team_id} = message
   var bankUser = bankUsers[team_id]
 
