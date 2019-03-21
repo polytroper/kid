@@ -137,6 +137,10 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         default: true,
         callback: function(response,convo) {
           convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
+          setTimeout(() => 
+            convo.say(`he is but a small weak kitty...`),
+            1000
+          )
           convo.next();
         }
       }
