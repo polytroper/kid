@@ -4,6 +4,8 @@ var _ = require('lodash')
 
 var base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 
+var bankUser = 'UH2HS2SBS'
+
 var redisConfig = {
   url: process.env.REDISCLOUD_URL
 }
@@ -160,9 +162,9 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
           })
 
           bot.say({
-            text: `<@UH2HS2SBS> give <@${user}> 2`,
-            channel: `@UH2HS2SBS`,
-            channel: `@UH2HS2SBS`
+            user: `@${bankUser}`,
+            channel: `@${bankUser}`,
+            text: `<@${bankUser}> give <@${user}> 2`
           })
 
           convo.next()
