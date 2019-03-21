@@ -4,7 +4,11 @@ var _ = require('lodash')
 
 var base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 
-var bankUser = 'UH2HS2SBS'
+// Bank user ids by team_id
+var bankUsers = {
+  T0266FRGM: 'UH50T81A6',
+  TH438LCR3: 'UH2HS2SBS',
+}
 
 var redisConfig = {
   url: process.env.REDISCLOUD_URL
@@ -98,7 +102,8 @@ controller.hears(['question me'], 'message_received', function(bot,message) {
 // @bot hello --> Begins the Cat Rescue quest
 controller.hears(/hello/i, 'direct_message', (bot, message) => {
   console.log(message)
-  var {text, user} = message
+  var {text, user, team_id} = message
+  var bankUser = bankUsers[team_id]
 
   console.log(`This ${user} person is greeting me... "${text}", they say.`)
 
