@@ -156,7 +156,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
           console.log(`${user}: ${response.text}`)
           console.log(`Thanks for the cat, ${user}`)
           convo.say({
-            delay: 2000,
+            delay: 1500,
             text: catReply
           })
 
@@ -167,9 +167,12 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         default: true,
         callback: function(response,convo) {
           console.log(`Not a cat, ${user}. I'll just have to complain about ${catName} again.`)
-          convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
           convo.say({
-            delay: 2500,
+            delay: 1500,
+            text: `i shall be ever so sad if anything happens to ${catName} :(`
+          })
+          convo.say({
+            delay: 1500,
             text: `he is but a small weak kitty...`
           })
 
