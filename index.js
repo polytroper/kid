@@ -159,6 +159,12 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
             text: catReply
           })
 
+          bot.say({
+            text: `<@UH2HS2SBS> give <@${user}> 2`,
+            channel: `@UH2HS2SBS`,
+            channel: `@UH2HS2SBS`
+          })
+
           convo.next()
         }
       },
