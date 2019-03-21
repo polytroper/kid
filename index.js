@@ -86,8 +86,15 @@ bot.say({
   channel: '@UDK5M9Y13'
 });
 
+controller.hears(['question me'], 'message_received', function(bot,message) {
+
+
+});
+
 // @bot hello --> Begins the Cat Rescue quest
 controller.hears(/hello/i, 'direct_message', (bot, message) => {
+
+
   // console.log(message)
   var {text, user} = message
 
@@ -104,9 +111,38 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
   ]
 
   var catName = _.sample(catNames)
+  _.remove(catNames, catName)
   var catNameMistake = _.sample(catNameMistake)
 
-  bot.reply(message, `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`)
+  var reply = `scuse me sirrah, scuse me...\nmy cat ${catName} is missing.\n\npoor ${catName} _cough cough_ :(`
+
+  // start a conversation to handle this response.
+  bot.startConversation(message, function(err,convo) {
+    var catNameUpper = catName.toUpperCase()
+    var catNameMistakeUpper = catNameMistake.toUpperCase()
+    var catReply = `${catNameMistakeUpper}!!!! ... *cough* i mean, ${catNameUpper}!!`
+    catReply += `\noh i am ever so happy sirrah, thank you thank you!!`
+    catReply += `\ni shall repay you with what meager coins i have in my pocket!`
+
+
+    convo.addQuestion(reply, [
+      {
+        pattern: ':cat:',
+        callback: function(response,convo) {
+          convo.say(catReply)
+          convo.next()
+        }
+      },
+      {
+        default: true,
+        callback: function(response,convo) {
+          convo.say(`i shall be ever so sad if anything happens to ${catName} :(`)
+          convo.next();
+        }
+      }
+    ],{},'default');
+
+  })
 })
 
 controller.hears('.*', 'direct_mention,direct_message', (bot, message) => {
