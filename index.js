@@ -97,7 +97,7 @@ controller.hears(['question me'], 'message_received', function(bot,message) {
 
 // @bot hello --> Begins the Cat Rescue quest
 controller.hears(/hello/i, 'direct_message', (bot, message) => {
-  // console.log(message)
+  console.log(message)
   var {text, user} = message
 
   console.log(`This ${user} person is greeting me... "${text}", they say.`)
