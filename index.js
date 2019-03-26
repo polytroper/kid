@@ -128,7 +128,7 @@ const startCatConversation = (message) => {
         }
       }
     ], {})
-  }
+  })
 }
 
 // @bot hello --> Begins the Cat Rescue quest
