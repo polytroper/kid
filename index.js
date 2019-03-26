@@ -19,58 +19,6 @@ console.log("Booting kid bot")
 
 var startState = 'Cat Requested'
 
-function createCatQuestState(user, cb = () => {}) {
-  console.log(`Creating balance for User ${user}`)
-  
-  base('States').create({
-    "User": user,
-    "CatQuest": startState
-  }, function(err, record) {
-      if (err) { console.error(err); return; }
-      console.log(`New record created for User ${user}`)
-      // console.log(record)
-      cb(startState, record)
-  });
-}
-
-function setCatQuestState(id, state, cb = () => {}) {
-  console.log(`Setting CatQuest for Record ${id} to ${state}`)
-
-  base('States').update(id, {
-    "CatQuest": state
-  }, function(err, record) {
-    if (err) { console.error(err); return; }
-    console.log(`CatQuest for Record ${id} set to ${state}`)
-    cb(state, record)
-  })
-}
-
-function getCatQuestState(user, cb = () => {}) {
-  console.log(`Retrieving CatQuest for User ${user}`)
-
-  base('States').select({
-    filterByFormula: `User = "${user}"`
-  }).firstPage(function page(err, records) {
-    if (err) {
-      console.error(err)
-      return
-    }
-
-    if (records.length == 0) {
-      console.log(`No CatQuest state found for User ${user}.`)
-      createCatQuestState(user, cb)
-    }
-    else {
-      var record = records[0]
-      var fields = record.fields
-      var state = fields['CatQuest']
-      console.log(`CatQuest state for User ${user} is ${state}`)
-      console.log(fields)
-      cb(balance, record)
-    }
-  })
-}
-
 var controller = Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
@@ -86,28 +34,12 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
     controller.createOauthEndpoints(controller.webserver)
 });
 
-var bot = controller.spawn({
-});
-
-bot.say({
-  text: 'Awake',
-  channel: '@UDK5M9Y13'
-});
-
-controller.hears(['question me'], 'message_received', function(bot,message) {
-
-
-});
-
-// @bot hello --> Begins the Cat Rescue quest
-controller.hears(/hello/i, 'direct_message', (bot, message) => {
-  // console.log(message)
+// begin the cat rescue quest
+const startCatConversation = (message) => {
   var {text, user, team_id} = message
   var bankUser = bankUsers[team_id]
 
-  console.log(`This ${user} person is greeting me... "${text}", they say.`)
-
-  bot.startConversation(message, function(err,convo) {
+  bot.startPrivateConversation(message, (err, convo) => {
     // What shall I call my kitty this time...
     var catNames = [
       'floofy',
@@ -123,7 +55,7 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
       'Sir Snuggles',
       'flopsy'
     ]
-  
+
     var catName = _.sample(catNames)
     _.remove(catNames, catName)
     var catNameMistake = _.sample(catNames)
@@ -196,8 +128,30 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
         }
       }
     ], {})
+  }
+}
 
-  })
+// @bot hello --> Begins the Cat Rescue quest
+controller.hears(/hello/i, 'direct_message', (bot, message) => {
+  // console.log(message)
+  var {text, user, team_id} = message
+
+  console.log(`This ${user} person is greeting me... "${text}", they say.`)
+
+  bot.startCatConversation(message)
+})
+
+controller.hears(/meet <@([A-z|0-9]+)>/i, 'direct_message', (bot, message) => {
+  var {text, user, team_id, match} = message
+  var target = match[1]
+
+  var fakeMessage = {
+    user: target,
+    team_id,
+    channel: '@'+target,
+  }
+
+  startCatConversation(fakeMessage)
 })
 
 controller.hears('.*', 'direct_mention,direct_message', (bot, message) => {
