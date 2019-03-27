@@ -100,17 +100,17 @@ const startCatConversation = (message, record) => {
           })
 
           bot.say({
-            delay: 3000,
+          setTimeout(() => bot.say({
             user: `@${bankUser}`,
             channel: `@${bankUser}`,
             text: `<@${bankUser}> give <@${user}> 2`
-          })
+          }), 4000)
 
-          bot.say({
+          setTimeout(() => bot.say({
             user: `@${apps.toriel}`,
             channel: `@${apps.toriel}`,
             text: `<thanks, <@${user}> gave me a cat`
-          })
+          }), 6000)
 
           convo.next()
         }
