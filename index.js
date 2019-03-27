@@ -106,6 +106,12 @@ const startCatConversation = (message, record) => {
             text: `<@${bankUser}> give <@${user}> 2`
           })
 
+          bot.say({
+            user: `@${apps.toriel}`,
+            channel: `@${apps.toriel}`,
+            text: `<thanks, <@${user}> gave me a cat`
+          })
+
           convo.next()
         }
       },
