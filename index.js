@@ -1,14 +1,15 @@
 var Botkit = require('botkit')
 var Airtable = require('airtable')
 var _ = require('lodash')
+var Airbot = require('./airbot.js').default
 
-var base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
-
-// Bank user ids by team_id
-var bankUsers = {
-  T0266FRGM: 'UH50T81A6',
-  TH438LCR3: 'UH2HS2SBS',
-}
+const {
+  Record,
+  base
+} = Airbot({
+  botName: 'kid',
+  defaultRecord: {}
+})
 
 var redisConfig = {
   url: process.env.REDISCLOUD_URL
@@ -16,8 +17,6 @@ var redisConfig = {
 var redisStorage = require('botkit-storage-redis')(redisConfig)
 
 console.log("Booting kid bot")
-
-var startState = 'Cat Requested'
 
 var controller = Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -35,9 +34,11 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 });
 
 // begin the cat rescue quest
-const startCatConversation = (message) => {
+const startCatConversation = (message, record) => {
   var {text, user, team_id} = message
-  var bankUser = bankUsers[team_id]
+
+  var apps = record.apps
+  var bankUser = apps.bank
 
   bot.startPrivateConversation(message, (err, convo) => {
     // What shall I call my kitty this time...
@@ -138,9 +139,12 @@ controller.hears(/hello/i, 'direct_message', (bot, message) => {
 
   console.log(`This ${user} person is greeting me... "${text}", they say.`)
 
-  bot.startCatConversation(message)
+  Record(user, team_id, record => {
+    startCatConversation(message, record)
+  })
 })
 
+// Introduced by toriel --> Begins the Cat Rescue quest
 controller.hears(/meet <@([A-z|0-9]+)>/i, 'direct_message', (bot, message) => {
   var {text, user, team_id, match} = message
   var target = match[1]
@@ -151,7 +155,9 @@ controller.hears(/meet <@([A-z|0-9]+)>/i, 'direct_message', (bot, message) => {
     channel: '@'+target,
   }
 
-  startCatConversation(fakeMessage)
+  Record(user, team_id, record => {
+    startCatConversation(fakeMessage, record)
+  })
 })
 
 controller.hears('.*', 'direct_mention,direct_message', (bot, message) => {
