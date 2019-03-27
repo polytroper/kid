@@ -99,7 +99,6 @@ const startCatConversation = (message, record) => {
             text: catReply
           })
 
-          bot.say({
           setTimeout(() => bot.say({
             user: `@${bankUser}`,
             channel: `@${bankUser}`,
